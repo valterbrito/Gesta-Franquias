@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Franquias - Sistema de Gestão</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #1f2937;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            color: #6b7280;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+            text-align: left;
+        }
+        
+        .feature {
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .feature h3 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+        
+        .feature p {
+            color: #6b7280;
+            font-size: 0.95em;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .info {
+            background: #eff6ff;
+            border: 2px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 40px;
+            color: #1e40af;
+        }
+        
+        .info h3 {
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            text-align: left;
+        }
+        
+        footer {
+            color: #6b7280;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.95em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏢 Gestão Franquias</h1>
+        <p class="subtitle">Sistema completo de gestão para franquias</p>
+        
+        <div class="features">
+            <div class="feature">
+                <h3>📊 Dashboard</h3>
+                <p>Visualize métricas, gráficos e dados em tempo real</p>
+            </div>
+            <div class="feature">
+                <h3>📋 Relatórios</h3>
+                <p>Gere relatórios detalhados com filtros avançados</p>
+            </div>
+            <div class="feature">
+                <h3>🔐 Segurança</h3>
+                <p>Autenticação JWT e controle de acesso robusto</p>
+            </div>
+            <div class="feature">
+                <h3>📱 Responsivo</h3>
+                <p>Layout profissional que funciona em qualquer dispositivo</p>
+            </div>
+        </div>
+        
+        <div class="info">
+            <h3>🚀 Primeiros Passos</h3>
+            <p>Para rodar o projeto localmente:</p>
+            <div class="code-block">
+# Instale as dependências<br>
+cd frontend<br>
+npm install<br>
+<br>
+# Inicie o servidor de desenvolvimento<br>
+npm run dev<br>
+<br>
+# Acesse em http://localhost:3000
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <a href="https://github.com/valterbrito/Gesta-Franquias" class="btn btn-primary">GitHub Repository</a>
+            <a href="https://github.com/valterbrito/Gesta-Franquias#readme" class="btn btn-secondary">Ver Documentação</a>
+        </div>
+        
+        <footer>
+            <p>Desenvolvido com ❤️ por <a href="https://github.com/valterbrito" style="color: inherit; text-decoration: none;"><strong>Valter Brito</strong></a></p>
+            <p>© 2025 Todos os direitos reservados</p>
+        </footer>
+    </div>
+</body>
+</html>
