@@ -1,272 +1,114 @@
 'use client'
 
 import { useState } from 'react'
+import MetricCard from '@/components/cards/metric-card'
+import SimpleChart from '@/components/charts/simple-chart'
+import Link from 'next/link'
 
-interface ReportRecord {
-  nomeCompleto: string
-  responsavelCadastro: string
-  documentos: string
-  data: string
-  nomeUsuarioEntrada: string
-  horarioEntrada: string
-  nomeUsuarioSaida: string
-  horarioSaida: string
-}
+export default function Dashboard() {
+  const [timeRange, setTimeRange] = useState('month')
 
-export default function DashboardPage() {
+  const metrics = [
+    { title: 'Total de Transações', value: '1.234', change: 12, icon: '💳', color: 'blue' as const },
+    { title: 'Receita Total', value: 'R$ 45.234', change: 8, icon: '💰', color: 'green' as const },
+    { title: 'Unidades Ativas', value: '24', change: 2, icon: '🏢', color: 'purple' as const },
+    { title: 'Usuários', value: '156', change: 5, icon: '👥', color: 'orange' as const },
+  ]
+
+  const recentTransactions = [
+    { label: 'Café Central', value: 156 },
+    { label: 'Loja Norte', value: 248 },
+    { label: 'Unidade Sul', value: 189 },
+    { label: 'Café Premium', value: 267 },
+    { label: 'Loja Leste', value: 134 },
+  ]
+
+  const performanceData = [
+    { label: 'Janeiro', value: 1200 },
+    { label: 'Fevereiro', value: 1900 },
+    { label: 'Março', value: 1500 },
+    { label: 'Abril', value: 2200 },
+    { label: 'Maio', value: 2800 },
+    { label: 'Junho', value: 3200 },
+  ]
+
   return (
-    <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-2">Bem-vindo ao painel principal. Acesse <a href="/dashboard/reports" className="text-blue-600 underline">Relatórios</a> para visualizar os dados detalhados.</p>
-      </div>
-      {/* Adicione aqui cards, gráficos ou métricas do dashboard principal */}
-    </div>
-  )
-}
-
-          {/* Data Inicial */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Data Inicial
-            </label>
-            <input
-              type="date"
-              value={filters.dataInicial}
-              onChange={(e) =>
-                setFilters({ ...filters, dataInicial: e.target.value })
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
-            />
-          </div>
-
-          {/* Data Final */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Data Final
-            </label>
-            <input
-              type="date"
-              value={filters.dataFinal}
-              onChange={(e) =>
-                setFilters({ ...filters, dataFinal: e.target.value })
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
-            />
-          </div>
-
-          {/* Unidade */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Unidade
-            </label>
-            <select
-              value={filters.unidade}
-              onChange={(e) =>
-                setFilters({ ...filters, unidade: e.target.value })
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
-            >
-              <option>Todas</option>
-              <option>Unidade 1</option>
-              <option>Unidade 2</option>
-            </select>
-          </div>
-
-          {/* Tipo de Ocorrência */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tipo de Ocorrência
-            </label>
-            <select
-              value={filters.tipoOcorrencia}
-              onChange={(e) =>
-                setFilters({ ...filters, tipoOcorrencia: e.target.value })
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
-            >
-              <option>Ambas</option>
-              <option>Entrada</option>
-              <option>Saída</option>
-            </select>
-          </div>
-
-          {/* Modo de Exibição */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Modo de Exibição
-            </label>
-            <select
-              value={filters.modoExibicao}
-              onChange={(e) =>
-                setFilters({ ...filters, modoExibicao: e.target.value })
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
-            >
-              <option>Sintético</option>
-              <option>Detalhado</option>
-            </select>
-          </div>
+    <div className="space-y-8 animate-fadeIn">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-600 mt-1">Bem-vindo de volta! Aqui está o resumo do seu negócio.</p>
         </div>
-
-        {/* Botões de ação */}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <button
-            onClick={handleClear}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <div className="flex gap-2">
+          <select
+            value={timeRange}
+            onChange={(e) => setTimeRange(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            ✕ Limpar
-          </button>
-          <button
-            onClick={handleSearch}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            🔍 Buscar
+            <option value="week">Última Semana</option>
+            <option value="month">Último Mês</option>
+            <option value="quarter">Último Trimestre</option>
+            <option value="year">Último Ano</option>
+          </select>
+          <button className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+            Exportar
           </button>
         </div>
       </div>
 
-      {/* Resultado da Pesquisa */}
-      <div className="bg-white rounded-lg shadow-sm">
-        {/* Cabeçalho da tabela com opções */}
-        <div className="border-b border-gray-200 p-4 md:p-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <h2 className="text-lg font-semibold text-gray-900">
-              Resultado da pesquisa
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => handleExport('copy')}
-                className="px-3 py-2 text-xs md:text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600"
-              >
-                Copiar
-              </button>
-              <button
-                onClick={() => handleExport('excel')}
-                className="px-3 py-2 text-xs md:text-sm font-medium text-white bg-green-500 rounded hover:bg-green-600"
-              >
-                Excel
-              </button>
-              <button
-                onClick={() => handleExport('csv')}
-                className="px-3 py-2 text-xs md:text-sm font-medium text-white bg-orange-500 rounded hover:bg-orange-600"
-              >
-                CSV
-              </button>
-              <button
-                onClick={() => handleExport('pdf')}
-                className="px-3 py-2 text-xs md:text-sm font-medium text-white bg-red-500 rounded hover:bg-red-600"
-              >
-                PDF
-              </button>
-              <button
-                onClick={() => handleExport('extend')}
-                className="px-3 py-2 text-xs md:text-sm font-medium text-gray-700 bg-gray-200 rounded hover:bg-gray-300"
-              >
-                Estender colunas
-              </button>
-              <button
-                onClick={() => handleExport('group')}
-                className="px-3 py-2 text-xs md:text-sm font-medium text-gray-700 bg-gray-200 rounded hover:bg-gray-300"
-              >
-                Agrupar
-              </button>
-            </div>
-          </div>
-        </div>
+      {/* Métricas principais */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {metrics.map((metric, idx) => (
+          <MetricCard key={idx} {...metric} />
+        ))}
+      </div>
 
-        {/* Tabela responsiva */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="px-4 py-3 md:px-6 text-left font-semibold text-gray-700">
-                  Nome Completo
-                </th>
-                <th className="px-4 py-3 md:px-6 text-left font-semibold text-gray-700">
-                  Responsável Cadastro
-                </th>
-                <th className="px-4 py-3 md:px-6 text-left font-semibold text-gray-700">
-                  Documentos
-                </th>
-                <th className="px-4 py-3 md:px-6 text-left font-semibold text-gray-700">
-                  Data
-                </th>
-                <th className="px-4 py-3 md:px-6 text-left font-semibold text-gray-700">
-                  Nome Usuário Registro Entrada
-                </th>
-                <th className="px-4 py-3 md:px-6 text-left font-semibold text-gray-700">
-                  Horário de Entrada
-                </th>
-                <th className="px-4 py-3 md:px-6 text-left font-semibold text-gray-700">
-                  Nome Usuário Registro Saída
-                </th>
-                <th className="px-4 py-3 md:px-6 text-left font-semibold text-gray-700">
-                  Horário de Saída
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {mockData.map((record, idx) => (
-                <tr
-                  key={idx}
-                  className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
-                >
-                  <td className="px-4 py-3 md:px-6 text-gray-900">
-                    {record.nomeCompleto}
-                  </td>
-                  <td className="px-4 py-3 md:px-6 text-gray-700">
-                    {record.responsavelCadastro}
-                  </td>
-                  <td className="px-4 py-3 md:px-6 text-gray-700">
-                    {record.documentos}
-                  </td>
-                  <td className="px-4 py-3 md:px-6 text-gray-700">
-                    {record.data}
-                  </td>
-                  <td className="px-4 py-3 md:px-6 text-gray-700">
-                    {record.nomeUsuarioEntrada}
-                  </td>
-                  <td className="px-4 py-3 md:px-6 text-gray-700">
-                    {record.horarioEntrada}
-                  </td>
-                  <td className="px-4 py-3 md:px-6 text-gray-700">
-                    {record.nomeUsuarioSaida}
-                  </td>
-                  <td className="px-4 py-3 md:px-6 text-gray-700">
-                    {record.horarioSaida}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Gráficos */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <SimpleChart
+            title="Receita Mensal"
+            data={performanceData}
+            type="bar"
+          />
         </div>
-
-        {/* Paginação */}
-        <div className="px-4 py-4 md:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-gray-200">
-          <p className="text-sm text-gray-600">
-            Mostrando de 1 até 1 de 1 registros
-          </p>
-          <div className="flex gap-2">
-            <button
-              disabled
-              className="px-3 py-2 text-sm font-medium text-gray-400 bg-gray-100 rounded cursor-not-allowed"
-            >
-              Anterior
-            </button>
-            <button className="px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded">
-              1
-            </button>
-            <button
-              disabled
-              className="px-3 py-2 text-sm font-medium text-gray-400 bg-gray-100 rounded cursor-not-allowed"
-            >
-              Próxima
-            </button>
-          </div>
+        <div>
+          <SimpleChart
+            title="Top 5 Unidades"
+            data={recentTransactions}
+            type="line"
+          />
         </div>
-          </div>
+      </div>
 
+      {/* Ações rápidas */}
+      <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Ações Rápidas</h3>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <Link
+            href="/dashboard/reports"
+            className="p-4 border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition group"
+          >
+            <div className="text-2xl mb-2">📋</div>
+            <h4 className="font-semibold text-gray-900 group-hover:text-blue-600">Ver Relatórios</h4>
+            <p className="text-sm text-gray-600">Análise detalhada</p>
+          </Link>
+          <button className="p-4 border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition group">
+            <div className="text-2xl mb-2">➕</div>
+            <h4 className="font-semibold text-gray-900 group-hover:text-blue-600">Nova Transação</h4>
+            <p className="text-sm text-gray-600">Registrar transação</p>
+          </button>
+          <button className="p-4 border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition group">
+            <div className="text-2xl mb-2">👤</div>
+            <h4 className="font-semibold text-gray-900 group-hover:text-blue-600">Novo Usuário</h4>
+            <p className="text-sm text-gray-600">Adicionar usuário</p>
+          </button>
+          <button className="p-4 border border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition group">
+            <div className="text-2xl mb-2">📊</div>
+            <h4 className="font-semibold text-gray-900 group-hover:text-blue-600">Exportar Dados</h4>
+            <p className="text-sm text-gray-600">Baixar relatório</p>
+          </button>
         </div>
       </div>
     </div>
