@@ -1,0 +1,68 @@
+// Prisma schema para arquitetura SaaS multitenant
+// Comentários explicam cada modelo, campo e relação
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enum para papéis de usuário (RBAC)
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  USER
+}
+
+// Unidade de negócio (multitenancy)
+model Unit {
+  id        String   @id @default(uuid()) // Identificador único
+  name      String   // Nome da unidade
+  cnpj      String   // CNPJ da unidade
+  users     User[]   // Relação: usuários pertencentes à unidade
+  transactions Transaction[] // Relação: transações da unidade
+  createdAt DateTime @default(now()) // Data de criação
+}
+
+// Usuário do sistema
+model User {
+  id        String   @id @default(uuid()) // Identificador único
+  email     String   @unique // Email único
+  role      Role     // Papel do usuário
+  unitId    String?  // Unidade associada
+  unit      Unit?    @relation(fields: [unitId], references: [id]) // Relação com unidade
+  createdAt DateTime @default(now()) // Data de criação
+}
+
+// Transação financeira
+model Transaction {
+  id        String   @id @default(uuid()) // Identificador único
+  unitId    String   // Unidade associada
+  unit      Unit     @relation(fields: [unitId], references: [id]) // Relação com unidade
+  type      String   // Tipo de transação (entrada, saída, etc)
+  amount    Float    // Valor
+  status    String   // Status da transação
+  createdAt DateTime @default(now()) // Data de criação
+
+  @@index([unitId]) // Índice para queries multitenant
+}
+
+// Fluxo de caixa (cashflow)
+model Cashflow {
+  id        String   @id @default(uuid()) // Identificador único
+  unitId    String   // Unidade associada
+  unit      Unit     @relation(fields: [unitId], references: [id]) // Relação com unidade
+  month     Int      // Mês de referência
+  year      Int      // Ano de referência
+  totalIn   Float    // Total de entradas
+  totalOut  Float    // Total de saídas
+  createdAt DateTime @default(now()) // Data de criação
+
+  @@index([unitId]) // Índice para queries multitenant
+}
+
+// Índices para performance e integridade
+// @@index([unitId]) em Transaction e Cashflow garante queries multitenant eficientes
