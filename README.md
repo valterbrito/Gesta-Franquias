@@ -1,4 +1,4 @@
-# 🏢 Gestão Franquias
+# 🏢 Gestão de Franquias
 
 [![GitHub](https://img.shields.io/badge/GitHub-valterbrito-black?style=flat-square&logo=github)](https://github.com/valterbrito)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
